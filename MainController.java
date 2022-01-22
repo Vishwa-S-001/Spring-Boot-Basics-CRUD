@@ -20,13 +20,49 @@ public class MainController
 	}
 	
 	@RequestMapping("/addHuman")
-
 	public String addHumans(Human human)
 	{
 		dao.save(human);
-//		dao.findById(1);
 		return "addHuman.jsp";
-		
+	}
+	
+	@RequestMapping("/getHumanById")
+	public ModelAndView getHumansById(@RequestParam int id)
+	{
+		ModelAndView mv = new ModelAndView("viewHuman.jsp");
+		Human human =repo.findById(id).orElse(new Human());
+		mv.addObject(human);
+		return mv;
+	}
+	
+	@RequestMapping("/getHumansByCity")
+	public ModelAndView getHumansByCity(@RequestParam String city)
+	{
+		ModelAndView mv = new ModelAndView("viewHumansList.jsp");
+		List<Human> human =repo.findByCity(city);
+		System.out.println(human);
+		mv.addObject(human);
+		return mv;
+	}
+	
+	@RequestMapping("/getHumansByCountry")
+	public ModelAndView getHumansByCountry(@RequestParam String country)
+	{
+		ModelAndView mv = new ModelAndView("viewHumansList.jsp");
+		List<Human> human =repo.findByCountry(country);
+		System.out.println(human);
+		mv.addObject(human);
+		return mv;
+	}
+	
+	@RequestMapping("/getHumansByCitySortedByName")
+	public ModelAndView getHumansByCitySortedByName(@RequestParam String city)
+	{
+		ModelAndView mv = new ModelAndView("viewHumansList.jsp");
+		List<Human> human =repo.findByCitySortedByName(city);
+		System.out.println(human);
+		mv.addObject(human);
+		return mv;
 	}
 	
 
