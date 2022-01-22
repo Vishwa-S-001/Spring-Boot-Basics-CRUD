@@ -26,8 +26,15 @@ public class MainController
 		dao.save(human);
 //		dao.findById(1);
 		return "addHuman.jsp";
+	}
+	@RequestMapping("/getHuman")
+	public ModelAndView getHumans(@RequestParam int id)
+	{
+		ModelAndView mv = new ModelAndView("viewHuman.jsp");
+		Human human =dao.findById(id).orElse(new Human());
+		mv.addObject(human);
+		return mv;
 		
 	}
-	
 
 }
